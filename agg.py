@@ -264,10 +264,11 @@ def analyze(infile='Aggregate.txt', Anim=True, AggPlot=True):
 
     if Anim:
         metadata = dict(title='Movie Test', artist='Matplotlib', comment='Movie support')
-        writer = HTMLWriter(fps=20, metadata = metadata)
+        FFMpegWriter = animation.writers['ffmpeg']
+        #writer = HTMLWriter(fps=20, metadata = metadata)
+        writer = FFMpegWriter(fps=20, metadata = metadata)
         fig = plt.figure()
         fig.set_size_inches(5,5)
-        #dpi = 100 #default value in matplotlib
         ax = plt.gca()
         ax.set_xlim(x_lim[0], x_lim[1])
         ax.set_ylim(y_lim[0], y_lim[1])
@@ -276,7 +277,7 @@ def analyze(infile='Aggregate.txt', Anim=True, AggPlot=True):
         locs = np.zeros((size,2))
         l = plt.scatter(locs[:,0], locs[:,1], s=r_plot)
         with open(file, 'r') as f:
-            with writer.saving(fig, "writer_test.html", 100):
+            with writer.saving(fig, "writer_test.mp4", dpi=100):
                 f.readline()
                 f.readline()
                 f.readline()
@@ -290,6 +291,8 @@ def analyze(infile='Aggregate.txt', Anim=True, AggPlot=True):
                     else:
                         locs[i,:] = [float(val) for val in vals[0:2]]
                         i = i + 1
+        writer.finish()
+
     if AggPlot:
         with open(file, 'r') as f:
             f.readline()
