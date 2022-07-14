@@ -1,13 +1,12 @@
 import matplotlib.animation as animation
 from matplotlib import pyplot as plt
-from matplotlib.animation import HTMLWriter
 import numpy as np
 
 def p_v_init(num_particles, speed, R, L):
 
     #initial positions
     ps= np.zeros((num_particles,2))
-    spacing = 1.2*2*R
+    spacing = L/(num_particles**0.5)
     iters = int(L/spacing)
     count = 0
     flag = 0
@@ -265,7 +264,6 @@ def analyze(infile='Aggregate.txt', Anim=True, AggPlot=True):
     if Anim:
         metadata = dict(title='Movie Test', artist='Matplotlib', comment='Movie support')
         FFMpegWriter = animation.writers['ffmpeg']
-        #writer = HTMLWriter(fps=20, metadata = metadata)
         writer = FFMpegWriter(fps=20, metadata = metadata)
         fig = plt.figure()
         fig.set_size_inches(5,5)
