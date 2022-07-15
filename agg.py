@@ -276,7 +276,7 @@ def analyze(infile='Aggregate.txt', Anim=True, AggPlot=True):
         locs = np.zeros((size,2))
         l = plt.scatter(locs[:,0], locs[:,1], s=r_plot)
         with open(file, 'r') as f:
-            with writer.saving(fig, "writer_test.mp4", dpi=100):
+            with writer.saving(fig, "Aggregation.mp4", dpi=100):
                 f.readline()
                 f.readline()
                 f.readline()
