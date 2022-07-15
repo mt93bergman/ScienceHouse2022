@@ -1,13 +1,17 @@
 import matplotlib.animation as animation
 from matplotlib import pyplot as plt
 import numpy as np
+from math import ceil
 
 def p_v_init(num_particles, speed, R, L):
 
     #initial positions
     ps= np.zeros((num_particles,2))
-    spacing = L/(num_particles**0.5)
-    iters = int(L/spacing)
+    iters = ceil(num_particles**0.5)
+    spacing = L/iters
+    if spacing < 2*R:
+        print('too many particles to fit in system! Decrease N and try again')
+        exit()
     count = 0
     flag = 0
     for i in range(iters):
@@ -19,9 +23,6 @@ def p_v_init(num_particles, speed, R, L):
                 break
         if flag == 1:
             break
-    if flag == 0:
-        print('too many particles to fit in system! Decrease N and try again')
-        exit()
 
     ps = ps - L*0.5
 
